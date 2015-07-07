@@ -15,7 +15,9 @@ namespace DemoOAuthConsole
         {
             //WebBrowserTest t = new WebBrowserTest();
             WebFormCaller wf = new WebFormCaller();
-            wf.Run();
+            var token = wf.GetToken();
+
+            Console.WriteLine(token);
 
             Console.Read();
         }

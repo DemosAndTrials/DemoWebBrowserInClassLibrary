@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,18 +20,23 @@ namespace OAuth
         private static string CallbackUrl = "https://login.salesforce.com/services/oauth2/success";
         internal static String TokenRefreshUrl = "https://login.salesforce.com/services/oauth2/token";
 
-        WebForm web = new WebForm(new Uri(ServiceRequestUri), CallbackUrl);
+        
+        private TokenResult token { get; set; }
 
-        public void Run()
+        public TokenResult GetToken()
         {
-            var t = new Thread(web.ShowTest);
+            WebForm web = new WebForm(new Uri(ServiceRequestUri), CallbackUrl);
+            // start in new thread
+            var t = new Thread(delegate() { token = web.Start(); });
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
+            t.Join();
+            //while (t.IsAlive)
+            //{
+            //    Thread.Sleep(5000);
+            //}
 
-            while (t.IsAlive)
-            {
-                Thread.Sleep(5000);
-            }
+            return token;
         }
 
     }

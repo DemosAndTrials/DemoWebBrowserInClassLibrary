@@ -13,8 +13,9 @@ namespace OAuth
 {
     public partial class WebForm : Form
     {
-        public Uri Link{ get; private set; }
-        public string endLink { get; private set; }
+        private Uri Link{ get;  set; }
+        private string endLink { get; set; }
+        private TokenResult Token { get; set; }
 
         public WebForm(Uri link, string endLink) 
         {
@@ -23,21 +24,25 @@ namespace OAuth
             this.endLink = endLink;
         }
 
-        public void ShowTest()
+        public TokenResult Start()
         {
+            // init browser
             var br = new WebBrowser();
             br.Url = Link;
             br.Dock = DockStyle.Fill;
             br.Navigating += br_Navigating;
             this.Controls.Add(br);
-
+            // show window
             this.ShowDialog();
+            // return token
+            return Token;
         }
 
         void br_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
             if (e.Url.AbsoluteUri.StartsWith(endLink))
             {
+                // parse result
                 string urlEnd = e.Url.ToString().Split('#')[1];
                 Dictionary<string, string> values = new Dictionary<string, string>();
                 string[] nameValues = urlEnd.Split(new[] { "&" }, StringSplitOptions.RemoveEmptyEntries);
@@ -51,10 +56,13 @@ namespace OAuth
                         values.Add(temp[0], WebUtility.UrlDecode(temp[1]));
                     }
                 }
-                Config conf = new Config();
-                conf.AccessToken = values["access_token"];
-                conf.InstanceUrl = values["instance_url"];
-                conf.RefreshToken = values["refresh_token"];
+                Token = new TokenResult();
+                Token.AccessToken = values["access_token"];
+                Token.InstanceUrl = values["instance_url"];
+                Token.RefreshToken = values["refresh_token"];
+
+                // close window
+                this.Close();
             }
         }
 
