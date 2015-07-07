@@ -35,7 +35,7 @@ namespace OAuth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 492);
+            this.ClientSize = new System.Drawing.Size(409, 376);
             this.Name = "WebForm";
             this.Text = "WebForm";
             this.ResumeLayout(false);

@@ -17,35 +17,7 @@ namespace DemoOAuthConsole
             WebFormCaller wf = new WebFormCaller();
             wf.Run();
 
-            //runBrowserThread(new Uri("http://www.google.co.il/"));
-
-
-
             Console.Read();
-        }
-
-        private static void runBrowserThread(Uri url)
-        {
-            var th = new Thread(() =>
-            {
-
-                var br = new WebBrowser();
-                br.DocumentCompleted += browser_DocumentCompleted;
-                br.Navigate(url);
-                Application.Run();
-            });
-            th.SetApartmentState(ApartmentState.STA);
-            th.Start();
-        }
-
-        static void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            var br = sender as WebBrowser;
-            if (br.Url == e.Url)
-            {
-                Console.WriteLine("Natigated to {0}", e.Url);
-                Application.ExitThread();   // Stops the thread
-            }
         }
     }
 }

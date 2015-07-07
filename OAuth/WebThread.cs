@@ -19,6 +19,7 @@ namespace OAuth
             web.Visible = true;
             web.DocumentCompleted += Web_DocumentCompleted;
             web.ScriptErrorsSuppressed = true;
+            
             web.Navigate("http://www.google.com");
 
             Application.Run();
