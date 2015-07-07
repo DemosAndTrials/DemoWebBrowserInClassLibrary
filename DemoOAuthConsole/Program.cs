@@ -1,11 +1,5 @@
 ﻿using OAuth;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DemoOAuthConsole
 {
@@ -13,13 +7,16 @@ namespace DemoOAuthConsole
     {
         static void Main(string[] args)
         {
-            //WebBrowserTest t = new WebBrowserTest();
+            Console.WriteLine("\n\nPress any cay to start authentication\n\n");
+            Console.ReadKey();
+        
+
             WebFormCaller wf = new WebFormCaller();
             var token = wf.GetToken();
 
-            Console.WriteLine(token);
 
-            Console.Read();
+            Console.WriteLine(token);
+            Console.ReadLine();
         }
     }
 }

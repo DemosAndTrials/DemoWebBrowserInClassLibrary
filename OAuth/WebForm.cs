@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OAuth
@@ -56,6 +50,7 @@ namespace OAuth
                         values.Add(temp[0], WebUtility.UrlDecode(temp[1]));
                     }
                 }
+
                 Token = new TokenResult();
                 Token.AccessToken = values["access_token"];
                 Token.InstanceUrl = values["instance_url"];
